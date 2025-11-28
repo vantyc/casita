@@ -1,0 +1,608 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{74E6D81A-0B0C-4C2C-A80E-8652998A38FC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LaCasita</RootNamespace>
+    <AssemblyName>LaCasita</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>C:\products\casita\assembly\84\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <InstallUrl>http://buensoftware.com/lcp/</InstallUrl>
+    <UpdateUrl>http://buensoftware.com/lcp/</UpdateUrl>
+    <ProductName>LaCasita</ProductName>
+    <PublisherName>VANTYC</PublisherName>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>index.html</WebPage>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>84</ApplicationRevision>
+    <ApplicationVersion>1.0.0.84</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>C34E0EDFEDED2879F10789DBB72199B6380A19F1</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>LaCasita_1_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>LaCasita.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AdvancedDataGridView">
+      <HintPath>..\packages\ADGV.0.1.0.10\lib\net40\AdvancedDataGridView.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Data.AdoDotNetInterop, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Web, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=5.0.5.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    </Reference>
+    <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="itextsharp, Version=5.5.5.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel">
+      <HintPath>..\..\..\..\..\..\Users\sonic\Documents\sw\msofficeinterop\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="microsoft.windowsapicodepack, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\microsoft.windowsapicodepack.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\MySQL\MySQL Connector Net 6.9.9\Assemblies\v4.5\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="office">
+      <HintPath>..\..\..\..\..\..\Users\sonic\Documents\sw\msofficeinterop\office.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CRCorteFinalMA.cs">
+      <DependentUpon>CRCorteFinalMA.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="CRCorte.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CRCorte.rpt</DependentUpon>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="CRLineas.cs">
+      <DependentUpon>CRLineas.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DsFacturas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DsFacturas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EmbeddedAssembly.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="frmConfiguracion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConfiguracion.Designer.cs">
+      <DependentUpon>frmConfiguracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmEtiquetas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEtiquetas.Designer.cs">
+      <DependentUpon>frmEtiquetas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFacturacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFacturacion.Designer.cs">
+      <DependentUpon>frmFacturacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPrincipal.Designer.cs">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSAT.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSAT.Designer.cs">
+      <DependentUpon>frmSAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTransferencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTransferencia.Designer.cs">
+      <DependentUpon>frmTransferencia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmWEB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmWEB.Designer.cs">
+      <DependentUpon>frmWEB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Globales.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="NumLet.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawPrinterHelper.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\ImpuestosLocales\V10\ImpuestosLocales.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\ImpuestosLocales\V10\RetencionesLocales.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\ImpuestosLocales\V10\TrasladosLocales.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\Nomina\V11\Deduccion.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\Nomina\V11\Deducciones.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\Nomina\V11\HorasExtra.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\Nomina\V11\Incapacidad.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\Nomina\V11\Nomina.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\Nomina\V11\Percepcion.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\Nomina\V11\Percepciones.cs" />
+    <Compile Include="Sat\Cfdi\Complementos\TimbreFiscalDigital\V10\TimbreFiscalDigital.cs" />
+    <Compile Include="Sat\Cfdi\V32\Addenda.cs" />
+    <Compile Include="Sat\Cfdi\V32\Complemento.cs" />
+    <Compile Include="Sat\Cfdi\V32\Comprobante.cs" />
+    <Compile Include="Sat\Cfdi\V32\Concepto.cs" />
+    <Compile Include="Sat\Cfdi\V32\ConceptoComplemento.cs" />
+    <Compile Include="Sat\Cfdi\V32\CuentaPredial.cs" />
+    <Compile Include="Sat\Cfdi\V32\Emisor.cs" />
+    <Compile Include="Sat\Cfdi\V32\Impuestos.cs" />
+    <Compile Include="Sat\Cfdi\V32\InformacionAduanera.cs" />
+    <Compile Include="Sat\Cfdi\V32\Parte.cs" />
+    <Compile Include="Sat\Cfdi\V32\Pdf.cs" />
+    <Compile Include="Sat\Cfdi\V32\Receptor.cs" />
+    <Compile Include="Sat\Cfdi\V32\RegimenFiscal.cs" />
+    <Compile Include="Sat\Cfdi\V32\Retencion.cs" />
+    <Compile Include="Sat\Cfdi\V32\Traslado.cs" />
+    <Compile Include="Sat\Cfdi\V32\Ubicacion.cs" />
+    <Compile Include="Sat\Cfdi\V32\UbicacionFiscal.cs" />
+    <Compile Include="Sat\Cfdi\V32\Validar.cs" />
+    <Compile Include="Sat\Xsd\GetXsd.cs" />
+    <Compile Include="Sat\Xslt\Resolver.cs" />
+    <Compile Include="StringWriterEncoding.cs" />
+    <Compile Include="Tools.cs" />
+    <Content Include="CRLineas.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRLineas.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CRCorte.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRCorte.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="CRCorteFinalMA.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CRCorteFinalMA.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="frmConfiguracion.resx">
+      <DependentUpon>frmConfiguracion.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEtiquetas.resx">
+      <DependentUpon>frmEtiquetas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFacturacion.resx">
+      <DependentUpon>frmFacturacion.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPrincipal.resx">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSAT.resx">
+      <DependentUpon>frmSAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTransferencia.resx">
+      <DependentUpon>frmTransferencia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmWEB.resx">
+      <DependentUpon>frmWEB.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DsFacturas.xsc">
+      <DependentUpon>DsFacturas.xsd</DependentUpon>
+    </None>
+    <None Include="DsFacturas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DsFacturas.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DsFacturas.xss">
+      <DependentUpon>DsFacturas.xsd</DependentUpon>
+    </None>
+    <None Include="LaCasita_1_TemporaryKey.pfx" />
+    <None Include="LaCasita_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Sat\Cer\00001000000102553368.cer" />
+    <None Include="Sat\Cer\00001000000102574483.cer" />
+    <None Include="Sat\Cer\00001000000102616613.cer" />
+    <None Include="Sat\Cer\00001000000102629688.cer" />
+    <None Include="Sat\Cer\00001000000102695128.cer" />
+    <None Include="Sat\Cer\00001000000102699425.cer" />
+    <None Include="Sat\Cer\00001000000103092042.cer" />
+    <None Include="Sat\Cer\00001000000103107666.cer" />
+    <None Include="Sat\Cer\00001000000103184196.cer" />
+    <None Include="Sat\Cer\00001000000103834451.cer" />
+    <None Include="Sat\Cer\00001000000103990728.cer" />
+    <None Include="Sat\Cer\00001000000104269756.cer" />
+    <None Include="Sat\Cer\00001000000104659367.cer" />
+    <None Include="Sat\Cer\00001000000104731997.cer" />
+    <None Include="Sat\Cer\00001000000104750010.cer" />
+    <None Include="Sat\Cer\00001000000104871381.cer" />
+    <None Include="Sat\Cer\00001000000104888042.cer" />
+    <None Include="Sat\Cer\00001000000200005634.cer" />
+    <None Include="Sat\Cer\00001000000200011997.cer" />
+    <None Include="Sat\Cer\00001000000200365214.cer" />
+    <None Include="Sat\Cer\00001000000200795916.cer" />
+    <None Include="Sat\Cer\00001000000201345662.cer" />
+    <None Include="Sat\Cer\00001000000201345708.cer" />
+    <None Include="Sat\Cer\00001000000201395217.cer" />
+    <None Include="Sat\Cer\00001000000201455572.cer" />
+    <None Include="Sat\Cer\00001000000201614141.cer" />
+    <None Include="Sat\Cer\00001000000201629292.cer" />
+    <None Include="Sat\Cer\00001000000201748120.cer" />
+    <None Include="Sat\Cer\00001000000202241710.cer" />
+    <None Include="Sat\Cer\00001000000202453260.cer" />
+    <None Include="Sat\Cer\00001000000202638162.cer" />
+    <None Include="Sat\Cer\00001000000202639096.cer" />
+    <None Include="Sat\Cer\00001000000202639521.cer" />
+    <None Include="Sat\Cer\00001000000202693892.cer" />
+    <None Include="Sat\Cer\00001000000202695775.cer" />
+    <None Include="Sat\Cer\00001000000202700691.cer" />
+    <None Include="Sat\Cer\00001000000202771790.cer" />
+    <None Include="Sat\Cer\00001000000202772539.cer" />
+    <None Include="Sat\Cer\00001000000202809550.cer" />
+    <None Include="Sat\Cer\00001000000202864285.cer" />
+    <None Include="Sat\Cer\00001000000202864530.cer" />
+    <None Include="Sat\Cer\00001000000202864883.cer" />
+    <None Include="Sat\Cer\00001000000202865018.cer" />
+    <None Include="Sat\Cer\00001000000202905407.cer" />
+    <None Include="Sat\Cer\00001000000203015571.cer" />
+    <None Include="Sat\Cer\00001000000203051706.cer" />
+    <None Include="Sat\Cer\00001000000203082087.cer" />
+    <None Include="Sat\Cer\00001000000203092957.cer" />
+    <None Include="Sat\Cer\00001000000203093174.cer" />
+    <None Include="Sat\Cer\00001000000203159220.cer" />
+    <None Include="Sat\Cer\00001000000203159375.cer" />
+    <None Include="Sat\Cer\00001000000203191015.cer" />
+    <None Include="Sat\Cer\00001000000203220518.cer" />
+    <None Include="Sat\Cer\00001000000203220546.cer" />
+    <None Include="Sat\Cer\00001000000203253077.cer" />
+    <None Include="Sat\Cer\00001000000203285726.cer" />
+    <None Include="Sat\Cer\00001000000203285735.cer" />
+    <None Include="Sat\Cer\00001000000203292609.cer" />
+    <None Include="Sat\Cer\00001000000203312933.cer" />
+    <None Include="Sat\Cer\00001000000203352843.cer" />
+    <None Include="Sat\Cer\00001000000203392777.cer" />
+    <None Include="Sat\Cer\00001000000203430011.cer" />
+    <None Include="Sat\Cer\00001000000203495276.cer" />
+    <None Include="Sat\Cer\00001000000203495475.cer" />
+    <None Include="Sat\Cer\00001000000203631919.cer" />
+    <None Include="Sat\Cer\00001000000300091673.cer" />
+    <None Include="Sat\Cer\00001000000300171291.cer" />
+    <None Include="Sat\Cer\00001000000300171326.cer" />
+    <None Include="Sat\Cer\00001000000300209963.cer" />
+    <None Include="Sat\Cer\00001000000300250292.cer" />
+    <None Include="Sat\Cer\00001000000300392385.cer" />
+    <None Include="Sat\Cer\00001000000300407877.cer" />
+    <None Include="Sat\Cer\00001000000300439968.cer" />
+    <None Include="Sat\Cer\00001000000300494998.cer" />
+    <None Include="Sat\Cer\00001000000300627194.cer" />
+    <None Include="Sat\Cer\00001000000300716418.cer" />
+    <None Include="Sat\Cer\00001000000300716428.cer" />
+    <None Include="Sat\Cer\00001000000300774022.cer" />
+    <None Include="Sat\Cer\00001000000300915978.cer" />
+    <None Include="Sat\Cer\00001000000300969660.cer" />
+    <None Include="Sat\Cer\00001000000301021501.cer" />
+    <None Include="Sat\Cer\00001000000301032322.cer" />
+    <None Include="Sat\Cer\00001000000301062628.cer" />
+    <None Include="Sat\Cer\00001000000301083052.cer" />
+    <None Include="Sat\Cer\00001000000301100488.cer" />
+    <None Include="Sat\Cer\00001000000301160463.cer" />
+    <None Include="Sat\Cer\00001000000301251152.cer" />
+    <None Include="Sat\Cer\00001000000301280594.cer" />
+    <None Include="Sat\Cer\00001000000301567711.cer" />
+    <None Include="Sat\Cer\00001000000301634628.cer" />
+    <None Include="Sat\Cer\00001000000301751173.cer" />
+    <None Include="Sat\Cer\00001000000301914249.cer" />
+    <None Include="Sat\Cer\00001000000301927035.cer" />
+    <None Include="Sat\Cer\00001000000301949314.cer" />
+    <None Include="Sat\Cer\00001000000304339685.cer" />
+    <None Include="Sat\Cer\00001000000304691381.cer" />
+    <None Include="Sat\Cer\00001000000305452415.cer" />
+    <None Include="Sat\Cer\00001000000305842154.cer" />
+    <None Include="Sat\Cer\20001000000100005761.cer" />
+    <None Include="Sat\Cer\20001000000100005868.cer" />
+    <None Include="Sat\Xsd\aerolineas.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\cfdiregistrofiscal.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\cfdv32.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\consumodecombustibles.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\detallista.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\divisas.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\donat11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\ecb.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\ecc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\iedu.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\implocal.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\leyendasFisc.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\nomina11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\notariospublicos.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\pagoenespecie.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\pfic.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\psgecfd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\spei.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\terceros11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\TimbreFiscalDigital.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\TuristaPasajeroExtranjero.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\valesdedespensa.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Sat\Xsd\ventavehiculos11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo-casita.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="dll\itextsharp.dll" />
+    <Content Include="dll\microsoft.windowsapicodepack.dll" />
+    <Content Include="dll\MySql.Data.dll" />
+    <Content Include="logo.ico" />
+    <None Include="Resources\barcode.png" />
+    <None Include="Resources\available-updates-32.png" />
+    <None Include="Resources\available-updates-48.png" />
+    <Content Include="Resources\cfg.ico" />
+    <None Include="Resources\logo_login.png" />
+    <Content Include="Resources\logo_login.ico" />
+    <Content Include="Resources\lupa.png" />
+    <None Include="Resources\new-48.png" />
+    <Content Include="Sat\Xslt\aerolineas.xslt" />
+    <Content Include="Sat\Xslt\cadenaoriginal_2_2.xslt" />
+    <Content Include="Sat\Xslt\cadenaoriginal_3_0.xslt" />
+    <Content Include="Sat\Xslt\cadenaoriginal_3_2.xslt" />
+    <Content Include="Sat\Xslt\cadenaoriginal_TFD_1_0.xslt" />
+    <Content Include="Sat\Xslt\cfdiregistrofiscal.xslt" />
+    <Content Include="Sat\Xslt\consumodecombustibles.xslt" />
+    <Content Include="Sat\Xslt\detallista.xslt" />
+    <Content Include="Sat\Xslt\divisas.xslt" />
+    <Content Include="Sat\Xslt\donat.xslt" />
+    <Content Include="Sat\Xslt\donat11.xslt" />
+    <Content Include="Sat\Xslt\ecb.xslt" />
+    <Content Include="Sat\Xslt\ecc.xslt" />
+    <Content Include="Sat\Xslt\iedu.xslt" />
+    <Content Include="Sat\Xslt\implocal.xslt" />
+    <Content Include="Sat\Xslt\leyendasFisc.xslt" />
+    <Content Include="Sat\Xslt\nomina11.xslt" />
+    <Content Include="Sat\Xslt\notariospublicos.xslt" />
+    <Content Include="Sat\Xslt\pagoenespecie.xslt" />
+    <Content Include="Sat\Xslt\pfic.xslt" />
+    <Content Include="Sat\Xslt\psgcfdsp.xslt" />
+    <Content Include="Sat\Xslt\psgecfd.xslt" />
+    <Content Include="Sat\Xslt\spei.xslt" />
+    <Content Include="Sat\Xslt\terceros.xslt" />
+    <Content Include="Sat\Xslt\terceros11.xslt" />
+    <Content Include="Sat\Xslt\TuristaPasajeroExtranjero.xslt" />
+    <Content Include="Sat\Xslt\utilerias.xslt" />
+    <Content Include="Sat\Xslt\valesdedespensa.xslt" />
+    <Content Include="Sat\Xslt\ventavehiculos.xslt" />
+    <Content Include="Sat\Xslt\ventavehiculos11.xslt" />
+    <None Include="Resources\cfg.png" />
+    <None Include="Resources\SAT.png" />
+    <None Include="Resources\Excel-icon.png" />
+    <None Include="Resources\factura-481.png" />
+    <None Include="Resources\factura-48.png" />
+    <None Include="Resources\EXIT_48.ico" />
+    <None Include="Resources\cross_remove_no_image_delete_exit.png" />
+    <None Include="Resources\exit-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="log4net">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Assembly</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
