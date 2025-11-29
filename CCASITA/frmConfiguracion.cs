@@ -9,7 +9,7 @@ using System.Diagnostics;
 using System.Data.OleDb;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Runtime.InteropServices;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace LaCasita
 {
