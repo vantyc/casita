@@ -151,7 +151,9 @@ namespace LaCasita
 
                 if (rbManana.Checked || rbTarde.Checked || rbFinal.Checked)
                 {
-                    _query = "select DATE_FORMAT(fh_corte, '%Y/%m/%d %H:%i') from corte as v where nu_corte = 2 and " + sucursalStr + "and st_corte = 'EJ' and fh_alta between '" + fechai + "' AND '" + fechaf + "'";
+                    // Mismo rango que la consulta de cortes de SII (CorteReporteFact.getRangoHistorico): la mañana
+                    // termina un minuto después del corte de la mañana ejecutado y la tarde empieza en ese momento.
+                    _query = "select DATE_FORMAT(DATE_ADD(fh_corte, INTERVAL 1 MINUTE), '%Y/%m/%d %H:%i:%s') from siilcp_siidb.corte where nu_corte = 2 and " + sucursalStr + " and st_corte = 'EJ' and fh_corte between '" + fechai + "' AND '" + fechaf + "' order by fh_corte limit 1";
                     com = new MySqlCommand(_query, con);
                     try
                     {
@@ -180,6 +182,25 @@ namespace LaCasita
                     }
                 }
 
+                // En SII la tarde termina en el corte de la tarde ejecutado; si todavía no existe, al final del día.
+                string _TiempoCorteTardeFin = "";
+                if (rbTarde.Checked && HayCorte && chFiscal.Checked == false)
+                {
+                    _query = "select DATE_FORMAT(fh_corte, '%Y/%m/%d %H:%i:%s') from siilcp_siidb.corte where nu_corte = 3 and " + sucursalStr + " and st_corte = 'EJ' and fh_corte between '" + fechai + "' AND '" + fechaf + "' order by fh_corte limit 1";
+                    com = new MySqlCommand(_query, con);
+                    try
+                    {
+                        resultado = com.ExecuteScalar();
+                        if (resultado != null && resultado != DBNull.Value)
+                            _TiempoCorteTardeFin = resultado.ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("No se pudo consultar la tabla de cortes.\n" + ex.Message, "Error 155", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
                 if (rbManana.Checked && HayCorte)
                 {
                     fechaf = _TiempoCorteTarde;
@@ -187,30 +208,57 @@ namespace LaCasita
                 if (rbTarde.Checked && HayCorte)
                 { 
                     fechai = _TiempoCorteTarde;
+                    if (_TiempoCorteTardeFin != "")
+                        fechaf = _TiempoCorteTardeFin;
                 }
 
-                string granel = "", pedidos = "";
+                // Estatus que SII suma en el corte; las ventas canceladas (C) no entran.
+                string estatusVenta = "('PG','PA','PL','N','PP')";
+                string filtroMostrador = "v.fh_alta between '" + fechai + "' AND '" + fechaf + "' AND " + sucursalStr.Replace("nu_sucursal", "v.nu_sucursal") + " AND " + pago.Replace("tp_pago", "v.tp_pago") + " AND v.st_venta in " + estatusVenta + " AND IFNULL(v.nu_pedido, 0) = 0";
+                string granel = "", etiquetas = "", pedidos = "";
+                _query = "";
                 // QUERY PARA PRODUCTOS A GRANEL
                 if (chTVGranel.Checked == true)
                 {
                     granel = @"(select
                         v.nu_venta, 
-                        (select p.nu_producto from siilcp_siidb.producto as p where p.nu_producto = vp.nu_producto) as product, 
-                        (select ds_grupo from siilcp_siidb.grupo where nu_grupo = (select nu_grupo from siilcp_siidb.producto where nu_producto = product) ) as grupo, 
+                        vp.nu_producto as product, 
+                        g.ds_grupo as grupo, 
                         v.tp_pago, 
                         vp.nu_cantidad, 
-                        (select ds_producto from siilcp_siidb.producto as p where p.nu_producto = product) as descrip, 
-                        cast((select vp.nu_subtotal*(1-1/(1+vp.tp_impuesto/100)) from siilcp_siidb.venta_producto as vp where vp.nu_producto = product and vp.nu_venta=v.nu_venta) as decimal(36,2)) as ieps,
-                        cast((select vp.nu_subtotal from venta_producto as vp where v.nu_venta=vp.nu_venta and vp.nu_producto = product) as decimal(36,2)) as subtotal
-                        from siilcp_siidb.venta as v inner join venta_producto as vp on v.nu_venta = vp.nu_venta
-                        where
-                        v.fh_alta between '" + fechai + "' AND '" + fechaf + "' AND " + sucursalStr + " AND " + pago + " AND v.st_venta = 'PG') ";
+                        p.ds_producto as descrip, 
+                        cast(vp.nu_subtotal*(1-1/(1+vp.tp_impuesto/100)) as decimal(36,2)) as ieps,
+                        cast(vp.nu_subtotal as decimal(36,2)) as subtotal
+                        from siilcp_siidb.venta as v
+                        inner join siilcp_siidb.venta_producto as vp on vp.nu_venta = v.nu_venta
+                        left join siilcp_siidb.producto as p on p.nu_producto = vp.nu_producto
+                        left join siilcp_siidb.grupo as g on g.nu_grupo = p.nu_grupo
+                        where " + filtroMostrador + ")";
                     _query = granel;
+                }
+                // QUERY PARA PRODUCTOS CON ETIQUETA: SII los guarda en venta_etiqueta, no en venta_producto
+                if (chTVEtiqueta.Checked == true)
+                {
+                    etiquetas = @"(select
+                        v.nu_venta, 
+                        e.nu_producto as product, 
+                        g.ds_grupo as grupo, 
+                        v.tp_pago, 
+                        ve.nu_cantidad, 
+                        p.ds_producto as descrip, 
+                        cast(ve.nu_subtotal*(1-1/(1+ve.tp_impuesto/100)) as decimal(36,2)) as ieps,
+                        cast(ve.nu_subtotal as decimal(36,2)) as subtotal
+                        from siilcp_siidb.venta as v
+                        inner join siilcp_siidb.venta_etiqueta as ve on ve.nu_venta = v.nu_venta
+                        left join siilcp_siidb.etiqueta as e on e.nu_etiqueta = ve.nu_etiqueta
+                        left join siilcp_siidb.producto as p on p.nu_producto = e.nu_producto
+                        left join siilcp_siidb.grupo as g on g.nu_grupo = p.nu_grupo
+                        where " + filtroMostrador + ")";
+                    _query = _query == "" ? etiquetas : _query + " UNION ALL " + etiquetas;
                 }
                 // QUERY PARA PEDIDOS
                 if (chTVPedidos.Checked == true)
                 {
-                    _query = _query == "" ? _query : _query + " UNION ";
                     pedidos = @"(select 
                                v2.nu_venta, 
                                '' as product, 
@@ -218,11 +266,11 @@ namespace LaCasita
                                v2.tp_pago, 
                                '1' as nu_cantidad, 
                                concat('Pedido: ', (select p.nu_pedido_sucursal FROM siilcp_siidb.pedido as p where (p.nu_pedido = v2.nu_pedido) and p.st_pedido<>'C')) as descrip, 
-                               v2.nu_impuesto1 as ieps,
+                               IFNULL(v2.nu_impuesto1, 0) as ieps,
                                cast(v2.nu_total as decimal(36, 2)) as subtotal
-                               from siilcp_siidb.venta as v2 where " + sucursalStr + "  AND v2.fh_alta between '" + fechai + "' AND '" + fechaf + "' AND v2.nu_pedido<> '' AND " + pago + ")";
+                               from siilcp_siidb.venta as v2 where " + sucursalStr + "  AND v2.fh_alta between '" + fechai + "' AND '" + fechaf + "' AND IFNULL(v2.nu_pedido, 0) <> 0 AND v2.st_venta in " + estatusVenta + " AND " + pago + ")";
                     pedidos = string.Format(pedidos, Globales.CatPedidos == "" ? "Pedidos" : Globales.CatPedidos);
-                    _query = _query + pedidos;
+                    _query = _query == "" ? pedidos : _query + " UNION ALL " + pedidos;
                 }
                 if (_query == "")
                 {
