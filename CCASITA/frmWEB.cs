@@ -218,6 +218,8 @@ namespace LaCasita
                 string granel = "", etiquetas = "", pedidos = "";
                 _query = "";
                 // QUERY PARA PRODUCTOS A GRANEL
+                // La tasa de IEPS se corrige con la misma regla del botón "Corrige IEPS" (frmConfiguracion),
+                // para que el reporte no dependa de que alguien lo haya apretado.
                 if (chTVGranel.Checked == true)
                 {
                     granel = @"(select
@@ -227,7 +229,7 @@ namespace LaCasita
                         v.tp_pago, 
                         vp.nu_cantidad, 
                         p.ds_producto as descrip, 
-                        cast(vp.nu_subtotal*(1-1/(1+vp.tp_impuesto/100)) as decimal(36,2)) as ieps,
+                        cast(vp.nu_subtotal*(1-1/(1+IF(vp.tp_impuesto <> 8 AND p.tp_impuesto > 0 AND p.nu_indica_etiquetado = 1, p.tp_impuesto, vp.tp_impuesto)/100)) as decimal(36,2)) as ieps,
                         cast(vp.nu_subtotal as decimal(36,2)) as subtotal
                         from siilcp_siidb.venta as v
                         inner join siilcp_siidb.venta_producto as vp on vp.nu_venta = v.nu_venta
@@ -246,7 +248,7 @@ namespace LaCasita
                         v.tp_pago, 
                         ve.nu_cantidad, 
                         p.ds_producto as descrip, 
-                        cast(ve.nu_subtotal*(1-1/(1+ve.tp_impuesto/100)) as decimal(36,2)) as ieps,
+                        cast(ve.nu_subtotal*(1-1/(1+IF(ve.tp_impuesto > 0, ve.tp_impuesto, IFNULL(p.tp_impuesto, 0))/100)) as decimal(36,2)) as ieps,
                         cast(ve.nu_subtotal as decimal(36,2)) as subtotal
                         from siilcp_siidb.venta as v
                         inner join siilcp_siidb.venta_etiqueta as ve on ve.nu_venta = v.nu_venta
@@ -307,39 +309,22 @@ namespace LaCasita
                 }
 
                 //************** BLOQUE DE  CONSULTA DE DESCUENTOS INICIO
-                // SE VAN A CONSULTAR LOS DESCUENTOS
-                fechai = dtpFechaI.Value.Year.ToString() + "/" + dtpFechaI.Value.Month.ToString() + "/" + dtpFechaI.Value.Day.ToString() + " 00:00:00";
-                fechaf = dtpFechaF.Value.Year.ToString() + "/" + dtpFechaF.Value.Month.ToString() + "/" + dtpFechaF.Value.Day.ToString() + " 23:59:59";
-                // SI EL REPORTE SE PIDE DE LA MAÑANA EL DESCUENTO SERA LA SUMA DE LOS DESCUENTOS DE LA HORA CERO DEL DIA HASTA LA HORA DEL CORTE DE LA TARDE
-                // SI EL REPORTE SE PIDE DE LA TARDE EL DESCUENTO TOTAL SERA LA SUMA DE LOS DESCUENTOS DE LA HORA DE CORTE A LA HORA ULTIMA DEL DIA
-                // SI EL REPORTE SE PIDE FINAL EL DESCUENTO TOTAL SERA DEL LA HORA PRIMERA A LA HORA ULTIMA DEL DIA EN CUESTION
-
-                if (rbManana.Checked)
-                    _query = "select cast(sum(nu_cantidad_descuento) as decimal(36, 2)) from siilcp_siidb.venta where " + sucursalStr + "  AND fh_alta between '" + fechai + "' AND '" + _TiempoCorteTarde + "' AND " + pago;
-                else if (rbTarde.Checked)
-                    _query = "select cast(sum(nu_cantidad_descuento) as decimal(36, 2)) from siilcp_siidb.venta where " + sucursalStr + "  AND fh_alta between '" + _TiempoCorteTarde + "' AND '" + fechaf + "' AND " + pago;
-                else
-                    _query = "select cast(sum(nu_cantidad_descuento) as decimal(36, 2)) from siilcp_siidb.venta where " + sucursalStr + "  AND fh_alta between '" + fechai + "' AND '" + fechaf + "' AND " + pago;
+                // Mismo rango y estatus que los renglones del reporte, sumando cada día del ciclo.
+                _query = "select cast(sum(nu_cantidad_descuento) as decimal(36, 2)) from siilcp_siidb.venta where " + sucursalStr + "  AND fh_alta between '" + fechai + "' AND '" + fechaf + "' AND st_venta in " + estatusVenta + " AND " + pago;
                 com = new MySqlCommand(_query, con);
                 try
                 {
-                    //con.Open();
                     resultado = com.ExecuteScalar();
-                    if (resultado.GetType() != typeof(DBNull))
-                    {
-                        totalDescuentos = (decimal)resultado;
-                        //totalDescuentos = (decimal)resultado + totalDescuentos; // SE DEBE IR ACUMULANDO LA SUMA DE DESCUENTOS EN CADA DIA RECORRIDO DEL FOREACH
-                    }
-                    //else
-                      //  totalDescuentos = 0;
-                    //con.Close();
-                    //MessageBox.Show("Consulta Finalizada", "Busqueda Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (resultado != null && resultado != DBNull.Value)
+                        totalDescuentos += (decimal)resultado;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error al realizar la consulta. 288");
                     cortesDS.Clear();
                 }
+                fechai = dtpFechaI.Value.Year.ToString() + "/" + dtpFechaI.Value.Month.ToString() + "/" + dtpFechaI.Value.Day.ToString() + " 00:00:00";
+                fechaf = dtpFechaF.Value.Year.ToString() + "/" + dtpFechaF.Value.Month.ToString() + "/" + dtpFechaF.Value.Day.ToString() + " 23:59:59";
                 //************** BLOQUE DE  CONSULTA DE DESCUENTOS FINAL
             }
 
