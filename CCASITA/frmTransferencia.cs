@@ -96,7 +96,8 @@ namespace LaCasita
                     MessageBox.Show(ex.Message, "Error al obtener el último ID. 65");
                 }
 
-                // Insertar en venta_producto
+                // Insertar en venta_producto. nu_subtotal lleva el IEPS incluido, igual que los renglones de las ventas de SII:
+                // el reporte de Cortes suma ese campo y debe coincidir con venta.nu_total.
                 string producto = cbProducto.SelectedValue.ToString();
                 MySqlCommand com2 = con.CreateCommand();
 
@@ -104,10 +105,9 @@ namespace LaCasita
                         (nu_venta, nu_producto, nu_cantidad, nu_subtotal, nu_total, tp_impuesto, nu_impuesto1, nu_descuento, nu_cantidad_descuento, nu_usralta, fh_alta) 
                         VALUES ((select nu_venta from venta order by nu_venta desc limit 1), 
                         " + producto +
-                        @", 1 , @Importe , @Total, @tasaIEPS, @IEPS, 0, 0, 1, @Fecha)";
+                        @", 1 , @Total , @Total, @tasaIEPS, @IEPS, 0, 0, 1, @Fecha)";
 
                 com2.CommandText = _query;
-                com2.Parameters.AddWithValue("@Importe", importe);
                 com2.Parameters.AddWithValue("@Total", total);
                 com2.Parameters.AddWithValue("@tasaIEPS", tasaIEPS);
                 com2.Parameters.AddWithValue("@IEPS", ieps);
@@ -127,6 +127,7 @@ namespace LaCasita
             decimal ieps = txtIEPS.Text == "" ? 0 : Convert.ToDecimal(txtIEPS.Text);
             decimal total = txtTotal.Text == "" ? 0 : Convert.ToDecimal(txtTotal.Text);
             decimal importe = total - ieps;
+            decimal tasaIEPS = total == 0 ? 0 : (1 / (1 - ieps / total) - 1) * 100;
 
             string query = @"UPDATE venta SET 
                              nu_total=@total,
@@ -146,6 +147,22 @@ namespace LaCasita
 
                 con.Open();
                 com.ExecuteNonQuery();
+
+                using (var com2 = new MySqlCommand(@"UPDATE venta_producto SET
+                             nu_subtotal=@total,
+                             nu_total=@total,
+                             tp_impuesto=@tasaIEPS,
+                             nu_impuesto1=@nu_impuesto1,
+                             fh_alta=@fh_alta
+                             WHERE nu_venta=@nu_venta", con))
+                {
+                    com2.Parameters.AddWithValue("@total", total);
+                    com2.Parameters.AddWithValue("@tasaIEPS", tasaIEPS);
+                    com2.Parameters.AddWithValue("@nu_impuesto1", ieps);
+                    com2.Parameters.AddWithValue("@fh_alta", fecha);
+                    com2.Parameters.AddWithValue("@nu_venta", _nu_venta);
+                    com2.ExecuteNonQuery();
+                }
             }
 
             this.DialogResult = DialogResult.OK;
